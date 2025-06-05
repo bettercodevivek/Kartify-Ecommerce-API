@@ -26,6 +26,13 @@ const UserSchema = new mongoose.Schema({
     createdAt:{
         type:Date,
         default:Date.now
+
+          // A very important note : Date.now should be used instead of Date.now(), because here Date.now is a function reference, we are not
+         // calling the function here itself, rather mongoose will call it everytime user is created, so timestamp of that time will be saved,
+        // but if we use Date.now(), it means we have called function here itself and a fixed timestamp value will get associated with every
+       // user that gets created.
+      // default: Date.now → har nayi entry ke liye dynamic current time lagta hai.
+     // default: Date.now() → ek hi fixed time har document me default hoga (jo schema define hone ke time pe tha).
     }
 });
 
