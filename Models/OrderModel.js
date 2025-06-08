@@ -38,7 +38,7 @@ const OrderSchema = new mongoose.Schema({
     },
     paymentMethod:{
         type:String,
-        enum:['UPI','COD','Net Banking'],
+        enum:['UPI','COD','NetBanking'],
         default:'COD'
     },
     status:{
