@@ -1,11 +1,15 @@
+const AuthMiddleware = require('../Middlewares/AuthMiddleware')
+
+const RoleMiddleware = require('../Middlewares/RoleMiddleware');
+
 const {getMyOrders,placeOrder,} = require('../Controllers/OrderController');
 
 const express = require('express');
 
 const orderRouter = express.Router();
 
-orderRouter.post('/',placeOrder);
+orderRouter.post('/',AuthMiddleware,RoleMiddleware('user'),placeOrder);
 
-orderRouter.get('/',getMyOrders);
+orderRouter.get('/',AuthMiddleware,RoleMiddleware('user'),getMyOrders);
 
-modules.export = orderRouter;
+module.exports = orderRouter;
