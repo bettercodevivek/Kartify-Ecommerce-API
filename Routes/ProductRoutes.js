@@ -10,9 +10,9 @@ const productrouter = express.Router();
 
 productrouter.post('/create', AuthMiddleware,RoleMiddleware('admin'),CreateProduct);
 
-productrouter.get('/view',AuthMiddleware,RoleMiddleware('user'),getAllProducts);
+productrouter.get('/view',AuthMiddleware,getAllProducts);
 
-productrouter.get('/view/:id',AuthMiddleware,RoleMiddleware('user'),getProductById);
+productrouter.get('/view/:id',AuthMiddleware,getProductById);
 
 productrouter.put('/update/:id',AuthMiddleware,RoleMiddleware('admin'),UpdateProduct);
 
