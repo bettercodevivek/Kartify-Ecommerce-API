@@ -64,7 +64,8 @@ const Login = async(req,res) => {
      const payLoad = {
         username:userExists.username,
         email:userExists.email,
-        userId:userExists._id
+        userId:userExists._id,
+        role:userExists.role
      }
 
      const accessToken = jwt.sign(payLoad,process.env.ACCESS_SECRET_KEY,{expiresIn:'2m'});
@@ -104,7 +105,8 @@ const RefreshToken = async(req,res) => {
       const payLoad = {
         username:decoded.username,
         email:decoded.email,
-        userId:decoded.userId
+        userId:decoded.userId,
+        role:decoded.role
       }
 
       const accessToken = jwt.sign(payLoad,process.env.ACCESS_SECRET_KEY,{expiresIn:'2m'});

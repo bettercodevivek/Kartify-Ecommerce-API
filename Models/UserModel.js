@@ -33,6 +33,11 @@ const UserSchema = new mongoose.Schema({
        // user that gets created.
       // default: Date.now → har nayi entry ke liye dynamic current time lagta hai.
      // default: Date.now() → ek hi fixed time har document me default hoga (jo schema define hone ke time pe tha).
+    },
+    role:{
+        type:String,
+        enum:['user','admin'],
+        default:'user'
     }
 });
 
