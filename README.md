@@ -115,14 +115,3 @@ kartify/
 This project is licensed under the **MIT License**.
 
 ---
-
-## 📬 Contact
-
-Made with ❤️ by **Vivek Singh**
-
-- 🔗 GitHub: [github.com/viveksingh](https://github.com/bettercodevivek)
----
-
-
-
-   
