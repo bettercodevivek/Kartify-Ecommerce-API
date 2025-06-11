@@ -51,5 +51,79 @@ cd kartify
    npm start
 ```
 
+## Folder Structure
+```bash
+kartify/
+├── config/            # DB config and env setup
+├── controllers/       # Route handler logic
+├── middlewares/       # Auth, error handling, etc.
+├── models/            # Mongoose models
+├── routes/            # All route files
+├── utils/             # Utility functions
+├── app.js             # Main Express app
+└── server.js          # Server entry point
+```
+
+## 🧪 API Endpoints Overview
+
+### 🔑 Auth Routes
+
+| Method | Endpoint                  | Description                   |
+|--------|---------------------------|-------------------------------|
+| POST   | `/api/auth/signup`        | Register a new user           |
+| POST   | `/api/auth/login`         | Login and receive tokens (access + refresh)     |
+| GET    | `/api/auth/refresh-token` | Issue new access token        |
+
+---
+
+### 🛍️ Product Routes (Admin Only for write access)
+
+| Method | Endpoint             | Description          |
+|--------|----------------------|----------------------|
+| GET    | `/api/products/view`      | Get all products     |
+| POST   | `/api/products/create`    | Create a new product |
+| GET    | `/api/products/view/:id`  | Get product by ID    |
+| PUT    | `/api/products/update/:id`  | Update a product     |
+| DELETE | `/api/products/delete/:id`  | Delete a product     |
+
+---
+
+### 🛒 Cart Routes
+
+| Method | Endpoint          | Description               |
+|--------|-------------------|---------------------------|
+| GET    | `/api/cart`        | Get items in user’s cart  |
+| POST   | `/api/cart`        | Add cart items     |
+| PUT | `/api/cart/:id`    | Update item in the cart     |
+| DELETE | `/api/cart/:id`    | Remove item from cart     |
+
+---
+
+### 📦 Order Routes
+
+| Method | Endpoint          | Description                |
+|--------|-------------------|----------------------------|
+| POST   | `/api/orders`      | Place a new order          |
+| GET    | `/api/orders`      | Get user’s order history   |
+
+---
+
+> ℹ️ **Note:** All protected routes require a valid JWT access token in the Authorization header:  
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+
+---
+
+## 📬 Contact
+
+Made with ❤️ by **Vivek Singh**
+
+- 🔗 GitHub: [github.com/vivekbhati](https://github.com/bettercodevivek)
+---
+
+
 
    
