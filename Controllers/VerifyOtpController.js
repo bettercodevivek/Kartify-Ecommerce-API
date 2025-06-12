@@ -1,4 +1,6 @@
-const Otp = require("../Models/Otp");
+const Otp = require('../Models/Otp');
+
+const User = require('../Models/UserModel');
 
 exports.verifyOtp = async (req, res) => {
   const { email, otp: userOtp } = req.body;
@@ -14,7 +16,7 @@ exports.verifyOtp = async (req, res) => {
   }
 
   if (record.expiry < Date.now()) {
-    await Otp.deleteOne({ email }); // Clean up expired OTP
+    await Otp.deleteOne({ email });
     return res.status(400).json({ message: "OTP expired" });
   }
 
@@ -22,7 +24,15 @@ exports.verifyOtp = async (req, res) => {
     return res.status(400).json({ message: "Invalid OTP" });
   }
 
-  await Otp.deleteOne({ email }); // OTP used once only
+  //  OTP matched, update user.isVerified
+  const user = await User.findOne({ email });
+  if (user) {
+    user.isVerified = true;
+    await user.save();
+  }
 
-  return res.status(200).json({ message: "OTP verified successfully" });
+  //  Clean up OTP
+  await Otp.deleteOne({ email });
+
+  return res.status(200).json({ message: "OTP verified successfully. Account is now verified." });
 };

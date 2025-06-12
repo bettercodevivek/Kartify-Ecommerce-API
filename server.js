@@ -18,6 +18,8 @@ const orderRouter = require('./Routes/OrderRoutes');
 
 const cartrouter = require('./Routes/CartRoutes');
 
+const Otprouter = require('./Routes/otpRoutes');
+
 ConnectDB();
 
 app.use(express.json());
@@ -25,6 +27,8 @@ app.use(express.json());
 app.use(cookieparser());
 
 app.use('/api/auth',authrouter);
+
+app.use('/api/otp',Otprouter);
 
 app.use('/api/products',productrouter);
 
