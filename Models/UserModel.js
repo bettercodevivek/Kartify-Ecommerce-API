@@ -21,7 +21,9 @@ const UserSchema = new mongoose.Schema({
     },
     password:{
         type:String,
-        required:true
+        required:function(){
+            return !this.googleAuth;
+        }
     },
     createdAt:{
         type:Date,
@@ -42,6 +44,13 @@ const UserSchema = new mongoose.Schema({
     isVerified:{
         type:Boolean,
         default:false
+    },
+    googleAuth:{
+        type:Boolean,
+        default:false
+    },
+    avatar:{
+        type:String
     }
 });
 

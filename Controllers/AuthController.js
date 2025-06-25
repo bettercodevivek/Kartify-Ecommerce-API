@@ -6,7 +6,75 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../Models/UserModel');
 
+const {OAuth2Client} = require('google-auth-library');
+
+const client = new OAuth2Client(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  process.env.GOOGLE_REDIRECT_URI
+);
+
 // Now, we will write the handler functions for signup, login and token refresh for users
+
+// redirect to google login
+const googleLogin = async(req,res) => {
+  try{
+       const url = client.generateAuthUrl({
+        access_type:'offline',
+        scope:['profile','email']
+       });
+       res.redirect(url);
+  }
+  catch(err){
+     res.status(500).json({message:"Error in redirecting to google auth !"})
+  }
+}
+
+// google redirects back here with a token/code
+
+const googleCallback = async(req,res) => {
+
+   const code = req.query.code;
+
+  try{
+    
+   const {tokens} = await client.getToken(code);
+   client.setCredentials(tokens);
+
+   const oauth2 = require('googleapis').google.oauth2({
+    auth:client,
+    version:'v2'
+   })
+
+   const {data} = await oauth2.userinfo.get();
+
+   const {email,name,picture} = data;
+
+   let user = await User.findOne({email});
+
+   if(!user){
+    user = await User.create({
+       username:name,
+       email,
+       avatar:picture,
+       googleAuth:true
+    })
+   }
+
+   const token = jwt.sign({id:user._id},process.env.ACCESS_SECRET_KEY,{expiresIn:"1h"});
+
+   res.status(200).json({
+    message:"Google Login Successful !",
+    token,
+    user
+   })
+
+  }
+  catch(err){
+     console.error("google callback error : ",err);
+     res.status(500).json({message:"Internal Server Error !"})
+  }
+}
 
 const Signup = async(req,res) => {
     try{
@@ -127,4 +195,4 @@ const RefreshToken = async(req,res) => {
 
 }
 
-module.exports = {Signup,Login,RefreshToken};
+module.exports = {Signup,Login,RefreshToken,googleLogin,googleCallback};
