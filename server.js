@@ -1,4 +1,6 @@
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 const express = require('express');
 
@@ -19,6 +21,7 @@ const orderRouter = require('./Routes/OrderRoutes');
 const cartrouter = require('./Routes/CartRoutes');
 
 const Otprouter = require('./Routes/otpRoutes');
+
 
 ConnectDB();
 

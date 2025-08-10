@@ -1,7 +1,5 @@
 // We will write the function to connect Database in this module\
 
-require('dotenv').config();
-
 const mongoose = require('mongoose');
 
 const ConnectDB = async() => {
