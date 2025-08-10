@@ -39,6 +39,21 @@ app.use('/api/orders',orderRouter);
 
 app.use('/api/cart',cartrouter);
 
+// health status
+app.get('/', (req, res) => {
+    res.json({ 
+        message: 'Kartify E-commerce API is running!', 
+        status: 'success',
+        endpoints: {
+            auth: '/api/auth',
+            products: '/api/products', 
+            orders: '/api/orders',
+            cart: '/api/cart',
+            otp: '/api/otp'
+        }
+    });
+});
+
 app.listen(PORT,()=>{
     console.log('Server started successfully !!!')
 })
